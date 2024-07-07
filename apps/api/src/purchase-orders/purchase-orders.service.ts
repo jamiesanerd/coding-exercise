@@ -8,11 +8,16 @@ export class PurchaseOrdersService {
   }
 
   async findAll(): Promise<PurchaseOrders[]> {
-    return this.prisma.purchaseOrders.findMany({
-      orderBy: {
-        expected_delivery_date: 'asc',
-      },
-      include: {purchase_order_line_items: true}
-    });
+    try {
+      return await this.prisma.purchaseOrders.findMany({
+        orderBy: {
+          expected_delivery_date: 'asc',
+        },
+        include: {purchase_order_line_items: true}
+      });
+    } catch (error) {
+      console.error('Error fetching purchase orders:', error);
+      throw error;
+    }
   }
 }
