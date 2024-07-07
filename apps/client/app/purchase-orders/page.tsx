@@ -1,4 +1,8 @@
-import { PurchaseOrdersRow, PurchaseOrdersTable } from '../../components/PurchaseOrdersTable';
+'use client'; //required for Polaris
+import ShopifyPurchaseOrdersTable from '../../components/ShopifyPurchaseOrdersTable';
+import { PurchaseOrdersRow } from '../../components/PurchaseOrdersTable';
+import enTranslations from '@shopify/polaris/locales/en.json';
+import { AppProvider } from '@shopify/polaris';
 
 export const getData = async () => {
   try {
@@ -14,10 +18,10 @@ export const getData = async () => {
 export default async function Index() {
   const purchaseOrders = await getData()
   return (
-    <>
+    <AppProvider i18n={enTranslations}>
       <h1 className="text-2xl">Purchase Orders</h1>
-      <PurchaseOrdersTable purchaseOrders={purchaseOrders} />
-    </>
+      <ShopifyPurchaseOrdersTable purchaseOrders={purchaseOrders} />
+    </AppProvider>
   );
 }
 
